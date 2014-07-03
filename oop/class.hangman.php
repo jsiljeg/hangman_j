@@ -55,6 +55,9 @@ class hangman extends game
 						  id INT AUTO_INCREMENT PRIMARY KEY,
 						  playerNames VARCHAR(500),
 						  winner VARCHAR(100));");
+		$this->db->query("CREATE TABLE IF NOT EXISTS comments (
+						  id INT AUTO_INCREMENT PRIMARY KEY,
+						  comment VARCHAR(500));");
 		$this->db->close();
 		$this->turn = 1;
 		$this->numPlayers = $num_Players;
@@ -123,21 +126,6 @@ class hangman extends game
 		$this->guesses += $amount;
 	}
 	
-	function show_db() {
-		$this->db = new local_db;
-		$this->db->query("SELECT * FROM hangmangames;")->output_query();
-		echo "<br/>";
-		echo "<form action=\"index.php\">
-			  <input type=\"submit\" value=\"Back\">
-			  </form>";
-		echo "<br/>";
-		echo "<form action=\"comment.php\">
-			  <input type=\"submit\" value=\"Comment\">
-			  </form>";
-			  
-		$_SESSION['igrac'] = $this->players[$this->turn-1];
-	}
-	
 	
 	/**
 	* Purpose: display the game interface
@@ -152,10 +140,32 @@ class hangman extends game
 			echo "<div id=\"turn\">" . $this->players[$this->turn-1] . "'s turn.</div>";
 			echo "<div id=\"picture\">" . $this->picture() . "</div>
 				  <div id=\"guess_word\">" . $this->solvedWord() . "</div>
-				  <div id=\"select_letter\">
-					Enter A Letter:	<input type=\"text\" name=\"letter\" value=\"\" size=\"2\" maxlength=\"1\" /><br/>
-					Guess the word: <input type=\"text\" name=\"word\"><br/>
-					<input type=\"submit\" name=\"submit\" value=\"Guess\" />
+				  <div id=\"select_letter\" class=\"pretty-table\" align = \"center\">
+					<table width = \"40%\" align = \"center\" border = \"0\">
+						<tr>
+							<td>
+								Enter A Letter:	
+							</td>
+							<td>
+								<input type=\"text\" name=\"letter\" value=\"\" size=\"2\" maxlength=\"1\" /><br/>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Guess the word: 
+							</td>
+							<td>
+								<input type=\"text\" name=\"word\"><br/>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<input type=\"submit\" name=\"submit\" value=\"Guess\" />
+							</td>
+							<td>
+							</td>
+						</tr>
+					</table>
 				  </div>";
 				  
 				  if (!empty($this->letters))
@@ -167,6 +177,7 @@ class hangman extends game
 		{
 			//they've won the game
 			if ($this->won) {
+				
 				$playerindex = $this->turn - 1;
 				//if($playerindex < 0)
 				//	$playerindex = $this->numPlayers;
@@ -178,6 +189,8 @@ class hangman extends game
 				$this->db->close();
 				echo successMsg("Congratulations! " . $this->winner . " has won the game.<br/>
 								Your final score was: $this->score");
+				$_SESSION['dummy'] = $_SESSION['game']['hangman'];
+				unset($_SESSION['game']['hangman']);
 			}
 			else if ($this->health < 0)
 			{
@@ -185,9 +198,11 @@ class hangman extends game
 								Your final score was: $this->score");
 
 				echo "<div id=\"picture\">" . $this->picture() . "</div>";
+				$_SESSION['dummy'] = $_SESSION['game']['hangman'];
+				unset($_SESSION['game']['hangman']);
 			}
 
-			echo "<div id=\"start_game\"><input type=\"submit\" name=\"newgame\" value=\"New Game\" /></div>";
+			echo "<div  id=\"showdb\"><input type=\"submit\" name=\"newgame\" value=\"New Game\" /></div>";
 		}
 	}
 	

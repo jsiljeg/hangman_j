@@ -13,6 +13,11 @@ require_once('oop/class.hangman.php');
 //this will keep the game data as they refresh the page
 session_start();
 
+if(isset($_SESSION['admin'])) {
+	header('Location: comment.php');
+	exit();
+}
+
 //initialize players for session
 if(!isset($_SESSION['players'])) {
 	header("Location: players.php");
@@ -22,11 +27,6 @@ if(!isset($_SESSION['players'])) {
 //if they haven't started a game yet let's load one
 if (!isset($_SESSION['game']['hangman']))
 	$_SESSION['game']['hangman'] = new hangman(intval($_SESSION['nplayers']), $_SESSION['players']);
-	
-if(isset($_POST['showdb'])) {
-	$_SESSION['game']['hangman']->show_db();
-	exit();
-	}
 
 ?>
 <html>
@@ -43,8 +43,8 @@ if(isset($_POST['showdb'])) {
 		?>
 		</form>
 		<br/>
-		<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
-		<div id="showdb"><input type="submit" name="showdb" value="Show previous results"></div>
+		<form action="comment.php" method="POST">
+		<div id="showdb"><input type="submit"  name="showdb" value="Show previous results"></div>
 		</form>
 		</div>
 	</body>

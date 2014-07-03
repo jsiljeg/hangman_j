@@ -28,16 +28,16 @@ class local_db {
 	}
 
 	function output_query() {
-		echo "<table width=\"30%\" class=\"pretty-table\">";
+		echo "<table class=\"pretty-table\" border=1>";
 		echo "<tr>";
-		for($i = 1; $i < mysql_num_fields($this->result); $i++) {
+		for($i = 0; $i < mysql_num_fields($this->result); $i++) {
 			$field = mysql_fetch_field($this->result, $i);
 			echo "<td>" . $field->name . "</td>";
 		}
 		echo "</tr>";
 		while($row = mysql_fetch_array($this->result)) {
 			echo "<tr>";
-			for($i = 1; $i < mysql_num_fields($this->result); $i++)
+			for($i = 0; $i < mysql_num_fields($this->result); $i++)
 			echo "<td> " . $row[$i] . "</td>";
 			echo "</tr>";
 		}
@@ -45,14 +45,11 @@ class local_db {
 		return $this;
 	}
 	
-	function fetch_row() {
-		if($row = mysql_fetch_array($this->result))
-			return $row;
-		else return 0;
+	function new_field($table, $name, $type) {
+		$this->query("ALTER TABLE " . $table . " ADD " . $name . " " . $type);
 	}
-				
 
-	function close() {
+	function __destruct() {
 		mysql_close($this->con);
 	}
 	

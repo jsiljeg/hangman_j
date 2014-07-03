@@ -1,0 +1,82 @@
+body.pocetna{background-image:url(slike/jGlzr.png);}
+body.biografija{background-image:url(slike/jGlzr.png);}
+body.seminar{background-image:url(slike/jGlzr.png);}
+body.interesi{background-image:url(slike/jGlzr.png);}
+
+
+div.center{
+	background-color:white;
+	color:green;
+	margin: 10em 10em 10em 20em;
+	border-style: none;
+	padding: 1em 1em 2em 2em;
+}
+
+
+table.header{
+	position: fixed;
+              font-family:"Times New Roman";
+	top: 00em;
+	left: 0em;
+	width:100%;
+	height:20%;
+	border-style: none;
+	border-collapse: collapse;
+	background-image:url(slike/header.jpg);
+	color:#FFF;
+}
+table.header td{
+	
+	font-size: 1em;
+	padding: 0.5em;
+	padding-left: 5em;
+	
+}
+
+
+table.wc td{
+              float:left;
+	width:300px;
+	padding: 1.0em 0.5em 0.5em 0.5em;
+	border-style:none;
+}
+a{
+	color:lime;
+}
+a:visited{
+	color:gold;
+}
+a:hover{
+	text-decoration: none;
+}
+
+
+table.menu{
+	position: fixed;
+	top: 15em;
+	left: 5em;
+	width:10%;
+	height:20%;
+	border-style: none;
+	border-collapse: collapse;
+	background-color:darkkhaki;	
+}
+table.menu ul{
+	font-size: 1.1em;
+	padding: 1em;
+	padding-left: 1em;
+	font-weight:bold;
+              list-style-type: none;
+	line-height:200%;	
+}
+table.menu il{
+              list-style-type: none;
+} 
+table.menu a:hover{
+	color: #F55
+}
+
+
+.podnaslov2{
+	color: lawngreen;
+}

@@ -1,9 +1,18 @@
+<?php
+if(isset($_SESSION['admin'])) {
+	header('Location: comment.php');
+	exit();
+}
+?>
+
 <html>
 <body>
 
 <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
 
 <?php
+echo '<link href="inc/style.css" rel="stylesheet" type="text/css">';
+
 if(!isset($_POST['nplayers']) && !isset($_POST['players'][0])){
 	echo  "Number of players: ";
 	echo  "<input type=\"text\" name=\"nplayers\">
@@ -36,6 +45,10 @@ $_SESSION['ulaz']=1;
 
 ?>
 
+</form>
+
+<form action="login_session/home.php">
+<input type="submit" value="Login as admin">
 </form>
 
 </body>
